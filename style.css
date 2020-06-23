@@ -67,6 +67,9 @@ html,body{
     width: 250px;
     height: 50px;
 }
+.placeHolder::-webkit-input-placeholder {
+    color: red
+ }
 .modal_content button, .modal_content2 button{
     width: 260px;
     height: 50px;
