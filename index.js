@@ -29,13 +29,23 @@ function slider(){
 }
 slider()
 
-// 로그인, 회원가입 모달 토글기능
+//------ 로그인, 회원가입 모달 토글기능------------------------
+//로그인창
 let i = 0;
 function loginHandler(){
     if(i === 0){
         modal_back.style.visibility ="visible"
         modal_content.style.visibility ="visible"
         modal_back.addEventListener("click",loginHandler)
+
+        // 로그인창 닫으면 placeholder 원래대로 돌려놓기
+        loginID.value= ""
+        loginID.classList.remove('placeHolder');
+        loginID.placeholder = "ID"
+        loginPwd.value= ""
+        loginPwd.classList.remove('placeHolder');
+        loginPwd.placeholder = "Password"
+
         i = 1;
         j = 1;
     }else{
@@ -46,7 +56,7 @@ function loginHandler(){
         j = 0; 
     }
 }
-
+// 회원가입창 
 let j = 0;
 function registerHandler(){
     if(j === 0){
@@ -63,8 +73,19 @@ function registerHandler(){
         i = 0; 
     }
 }
+//로그인 오류 안내
+var loginID = document.querySelector(".login_id")
+var loginPwd = document.querySelector(".login_pwd")
+function handleLogin(){
+    loginID.value= ""
+    loginID.classList.add('placeHolder'); // 글씨 색 바꾸기
+    loginID.placeholder = "ID is Incorrect"
+    loginPwd.value= ""
+    loginPwd.classList.add('placeHolder');
+    loginPwd.placeholder = "Password is Incorrect"
+}
 
-//본문 수동 슬라이드 
+//--------------본문 수동 슬라이드 --------------
 var sector_imgArray=[]
 for(let k = 0; k<7; k++){
     sector_imgArray[k] = `url(sector_images/img0${k}.jpg)`
@@ -106,7 +127,7 @@ function sector_sliderHandler(index){
     sectorbox3.style.backgroundImage=sector_imgArray[imgindex3];
 }
 
-// 로그인, 회원가입 모달창 이동
+//-------------- 로그인, 회원가입 모달창 이동(CSS에서 display:fixed로 바꿔도 같은 기능)-----------
 function modalmove(){
     var scrollPosition = window.scrollY || document.documentElement.scrollTop;
     modal_back.style.top = `${scrollPosition}px`
@@ -120,7 +141,7 @@ register.addEventListener("click", registerHandler)
 sector_Left.addEventListener("click",sector_sliderLeft)
 sector_Right.addEventListener("click",sector_sliderRight)
 
-//번역기능
+//--------------번역기능--------------------------------
 var loginbutton = document.querySelector(".loginbutton")
 var registerbutton = document.querySelector(".registerbutton")
 var subtitle = document.querySelector(".subtitle")
@@ -161,7 +182,7 @@ function languageHandler(){
         register.innerHTML = "회원가입"
         language.innerHTML = "English"
         context_sliderHandler(0)
-     //   context_title.innerHTML ="E.P.G에 오신걸 환영합니다! "
+       //   context_title.innerHTML ="E.P.G에 오신걸 환영합니다! "
        // context.innerHTML = "우리는 환경 보전 단체입니다.<br>우리와 함께 활동할 분들을 찾습니다.<br>함께하고 싶다면<br>메일을 보내주세요! - EPG000@gmail.com<br><p>우리는 항상 당신을 기다립니다!</p>"
         footer_title1.innerHTML = "사이트맵"
         footer_title2.innerHTML = "단체장"
@@ -196,7 +217,7 @@ function languageHandler(){
             language.innerHTML = "한국어"
             context_sliderHandler(0)
            // context_title.innerHTML ="Welcome to E.P.G!"
-          //  context.innerHTML = "We are Protect Environmental Group<br>We find people who working with our<br>If you want join our group, <br>please send email - EPG000@gmail.com<br><p>We wait your contact!</p>"
+           //  context.innerHTML = "We are Protect Environmental Group<br>We find people who working with our<br>If you want join our group, <br>please send email - EPG000@gmail.com<br><p>We wait your contact!</p>"
             footer_title1.innerHTML = "Site Map"
             footer_title2.innerHTML = "Group leader"
             footer_title3.innerHTML = "Sponsored Account"
@@ -220,7 +241,7 @@ function languageHandler(){
 language.addEventListener("click", languageHandler)
 
 
-//context slider 구현
+//--------------------------context slider 구현--------------------
 
 var list1 = document.querySelector(".list1")
 var list2 = document.querySelector(".list2")
@@ -288,7 +309,7 @@ function context_sliderHandler(index){
 contextLeft.addEventListener("click",context_sliderLeft)
 contextRight.addEventListener("click",context_sliderRight)
 
-//------------------------------------------
+//----------------------채팅기능 구현---------------------------------
 var chatlist = document.querySelector(".chatlist")
 var chatIcon = document.querySelector(".chat");
 var chatIconinner = document.querySelector(".chat_inner")
@@ -342,3 +363,6 @@ function showchatbox(){
 }
 
 chatIcon.addEventListener("click",showchatbox)
+
+
+//------------------------------------------------------------------
