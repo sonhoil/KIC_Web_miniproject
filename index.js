@@ -30,6 +30,90 @@ function slider(){
 slider()
 
 //------ 로그인, 회원가입 모달 토글기능------------------------
+
+var isLogin = 0 // 로그인 여부 확인
+
+//------------------------회원가입----------------------------------
+var regId = document.querySelector(".reg_id")
+var regPwd = document.querySelector(".reg_pwd")
+var regPwd2 = document.querySelector(".reg_pwd2")
+var regName = document.querySelector(".reg_name")
+
+var client_list = []
+let j = 0;
+function registerID(){
+    console.log(regId.value)
+    if((regId.value.length>5)&&(regPwd.value.length > 8)&&(regPwd.value == regPwd2.value)&&(regName.value)){
+        client_list.push({ID:regId.value, Pwd:regPwd.value, Name:regName.value})
+        registerHandler()// 창 닫고 입력 초기화
+        console.log(client_list)
+
+    }else{
+        if(regId.value.length <5){
+            regId.value= ""
+            regId.classList.add('placeHolder'); // 글씨 색 바꾸기
+            regId.placeholder = "ID must over 5 character"
+        }
+        if(regPwd.value.length < 8){
+            regPwd.value= ""
+            regPwd.classList.add('placeHolder');
+            regPwd.placeholder = "Password must over 8 character"
+        }else if(regPwd.value = " "){
+            regPwd.value= ""
+            regPwd.classList.add('placeHolder');
+            regPwd.placeholder = "Password is blank"
+        }
+        if(regPwd.value !== regPwd2.value){
+            regPwd2.value= ""
+            regPwd2.classList.add('placeHolder');
+            regPwd2.placeholder = "Password is not same"
+        }else if(regPwd.value = " "){
+            regPwd2.value= ""
+            regPwd2.classList.add('placeHolder');
+            regPwd2.placeholder = "Password is blank"
+        }
+
+        if(!regName.value){
+            regName.classList.add('placeHolder');
+            regName.placeholder = "name is blank"
+        }
+
+    }
+
+}
+
+
+// 회원가입창 
+
+function registerHandler(){
+    if(j === 0){
+        modal_back.style.visibility ="visible"
+        modal_content2.style.visibility ="visible"
+        modal_back.addEventListener("click",registerHandler)
+
+        // 창 닫으면 입력 초기화
+        regId.value= ""
+        regId.classList.remove('placeHolder');
+        regId.placeholder = "ID"
+        regPwd.value= ""
+        regPwd.classList.remove('placeHolder');
+        regPwd.placeholder = "Password"
+        regPwd2.value= ""
+        regPwd2.classList.remove('placeHolder');
+        regPwd2.placeholder = "Password"
+        regName.value= ""
+        regName.classList.remove('placeHolder');
+        regName.placeholder = "Name"
+        i = 1;
+        j = 1;
+    }else{
+        modal_back.style.visibility ="hidden"
+        modal_content2.style.visibility ="hidden"
+        modal_back.removeEventListener("click",registerHandler)
+        j = 0; 
+        i = 0; 
+    }
+}
 //로그인창
 let i = 0;
 function loginHandler(){
@@ -46,6 +130,7 @@ function loginHandler(){
         loginPwd.classList.remove('placeHolder');
         loginPwd.placeholder = "Password"
 
+ 
         i = 1;
         j = 1;
     }else{
@@ -56,27 +141,12 @@ function loginHandler(){
         j = 0; 
     }
 }
-// 회원가입창 
-let j = 0;
-function registerHandler(){
-    if(j === 0){
-        modal_back.style.visibility ="visible"
-        modal_content2.style.visibility ="visible"
-        modal_back.addEventListener("click",registerHandler)
-        i = 1;
-        j = 1;
-    }else{
-        modal_back.style.visibility ="hidden"
-        modal_content2.style.visibility ="hidden"
-        modal_back.removeEventListener("click",registerHandler)
-        j = 0; 
-        i = 0; 
-    }
-}
+
 //로그인 오류 안내
 var loginID = document.querySelector(".login_id")
 var loginPwd = document.querySelector(".login_pwd")
 function handleLogin(){
+    // map 이용해서 접근
     loginID.value= ""
     loginID.classList.add('placeHolder'); // 글씨 색 바꾸기
     loginID.placeholder = "ID is Incorrect"
@@ -84,7 +154,11 @@ function handleLogin(){
     loginPwd.classList.add('placeHolder');
     loginPwd.placeholder = "Password is Incorrect"
 }
+//----------로그인------------------
+function _isLogin(ID){
 
+
+}
 //--------------본문 수동 슬라이드 --------------
 var sector_imgArray=[]
 for(let k = 0; k<7; k++){
@@ -116,7 +190,7 @@ function sector_sliderHandler(index){
         console.log(imgindex1)
         sector_Left.style.visibility = "visible"
     }
-    if(imgindex3 === 6  ){
+    if(imgindex3 === 6 ){
         sector_Right.style.visibility = "hidden"
     }else{
         sector_Right.style.visibility = "visible"
@@ -127,12 +201,12 @@ function sector_sliderHandler(index){
     sectorbox3.style.backgroundImage=sector_imgArray[imgindex3];
 }
 
-//-------------- 로그인, 회원가입 모달창 이동(CSS에서 display:fixed로 바꿔도 같은 기능)-----------
+//-------------- 로그인, 회원가입 모달창 이동-----------
 function modalmove(){
     var scrollPosition = window.scrollY || document.documentElement.scrollTop;
     modal_back.style.top = `${scrollPosition}px`
     modal_content.style.top = `${scrollPosition+190}px`
-    modal_content2.style.top = `${scrollPosition+190}px`
+    modal_content2.style.top = `${scrollPosition+270}px`
 }
 
 window.addEventListener("scroll", modalmove);
@@ -217,7 +291,7 @@ function languageHandler(){
             language.innerHTML = "한국어"
             context_sliderHandler(0)
            // context_title.innerHTML ="Welcome to E.P.G!"
-           //  context.innerHTML = "We are Protect Environmental Group<br>We find people who working with our<br>If you want join our group, <br>please send email - EPG000@gmail.com<br><p>We wait your contact!</p>"
+           // context.innerHTML = "We are Protect Environmental Group<br>We find people who working with our<br>If you want join our group, <br>please send email - EPG000@gmail.com<br><p>We wait your contact!</p>"
             footer_title1.innerHTML = "Site Map"
             footer_title2.innerHTML = "Group leader"
             footer_title3.innerHTML = "Sponsored Account"
@@ -365,4 +439,16 @@ function showchatbox(){
 chatIcon.addEventListener("click",showchatbox)
 
 
-//------------------------------------------------------------------
+//-----------------------화면 깨짐 방지-----------------------------
+var container = document.querySelector(".s_container");
+
+function setcontainerSize(){
+   var x = document.body.clientWidth
+   var y = document.body.clientHeight
+    container.style.minWidth = `${x}px`
+    container.style.minHeight =`${y}px`
+
+}
+setcontainerSize()
+
+
