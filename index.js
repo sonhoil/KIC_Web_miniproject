@@ -43,7 +43,7 @@ var client_list = []
 let j = 0;
 function registerID(){
     console.log(regId.value)
-    if((regId.value.length>5)&&(regPwd.value.length > 8)&&(regPwd.value == regPwd2.value)&&(regName.value)){
+    if((regId.value.length>5)&&(regPwd.value.length > 7)&&(regPwd.value == regPwd2.value)&&(regName.value)){
         client_list.push({ID:regId.value, Pwd:regPwd.value, Name:regName.value})
         registerHandler()// 창 닫고 입력 초기화
         console.log(client_list)
@@ -55,11 +55,11 @@ function registerID(){
             regId.placeholder = "ID must over 5 character"
         }
         if(regPwd.value.length < 8){
-            regPwd.value= ""
+            regPwd.value=""
             regPwd.classList.add('placeHolder');
             regPwd.placeholder = "Password must over 8 character"
         }else if(regPwd.value = " "){
-            regPwd.value= ""
+            regPwd.value=""
             regPwd.classList.add('placeHolder');
             regPwd.placeholder = "Password is blank"
         }
@@ -67,7 +67,8 @@ function registerID(){
             regPwd2.value= ""
             regPwd2.classList.add('placeHolder');
             regPwd2.placeholder = "Password is not same"
-        }else if(regPwd.value = " "){
+        }
+        if(regPwd.value = ""){
             regPwd2.value= ""
             regPwd2.classList.add('placeHolder');
             regPwd2.placeholder = "Password is blank"
@@ -441,10 +442,11 @@ chatIcon.addEventListener("click",showchatbox)
 
 //-----------------------화면 깨짐 방지-----------------------------
 var container = document.querySelector(".s_container");
-
+var heads = document.querySelector(".s_heads")
 function setcontainerSize(){
    var x = document.body.clientWidth
    var y = document.body.clientHeight
+   var head_x = document.clientWidth
     container.style.minWidth = `${x}px`
     container.style.minHeight =`${y}px`
 
