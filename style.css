@@ -183,7 +183,7 @@ body::-webkit-scrollbar-track {
     align-items: center;
 }
 .chattext{
-    width: 220px;
+    width: 180px;
     height: 30px;
     padding-right: 50px; /*버튼과 겹치게 설정*/
 }
@@ -254,7 +254,8 @@ ul{
 /*메인 배경*/
 .s_header{
     width: 100%;
-    height: 120%;
+ 
+    height: 100%;
     background-image: url(./main_images/bg00.jpg);
     background-size: cover;
 }
