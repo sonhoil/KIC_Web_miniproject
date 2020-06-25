@@ -43,44 +43,85 @@ var client_list = []
 let j = 0;
 function registerID(){
     console.log(regId.value)
-    if((regId.value.length>5)&&(regPwd.value.length > 7)&&(regPwd.value == regPwd2.value)&&(regName.value)){
-        client_list.push({ID:regId.value, Pwd:regPwd.value, Name:regName.value})
-        registerHandler()// 창 닫고 입력 초기화
-        console.log(client_list)
-
-    }else{
-        if(regId.value.length <5){
-            regId.value= ""
-            regId.classList.add('placeHolder'); // 글씨 색 바꾸기
-            regId.placeholder = "ID must over 5 character"
+    var reg_ID = regId.value
+    if(client_list.length === 0){ // 첫 회원가입 경우
+        if((regId.value.length>5)&&(regPwd.value.length > 8)&&(regPwd.value == regPwd2.value)&&(regName.value)){
+           //회원정보에 추가
+            client_list.push({ID:regId.value, Pwd:regPwd.value, Name:regName.value})
+           // 로그인 활성화
+            isLogin = 1;
+            _isLogin(regName.value)
+            registerHandler()// 창 닫고 입력 초기화
+        }else{
+            if(regId.value.length <5){
+                regId.value= ""
+                regId.classList.add('placeHolder'); // 글씨 색 바꾸기
+                regId.placeholder = "ID must over 5 character"
+            }
+            if(regPwd.value.length < 8){
+                regPwd.value= ""
+                regPwd.classList.add('placeHolder');
+                regPwd.placeholder = "Password must over 8 character"
+            }else if(regPwd.value = " "){
+                regPwd.value= ""
+                regPwd.classList.add('placeHolder');
+                regPwd.placeholder = "Password is blank"
+            }
+            if(regPwd.value !== regPwd2.value){
+                regPwd2.value= ""
+                regPwd2.classList.add('placeHolder');
+                regPwd2.placeholder = "Password is not same"
+            }else if(regPwd.value = ""){
+                regPwd2.value= ""
+                regPwd2.classList.add('placeHolder');
+                regPwd2.placeholder = "Password is blank"
+            }
+            if(!regName.value){
+                regName.classList.add('placeHolder');
+                regName.placeholder = "name is blank"
+            }
         }
-        if(regPwd.value.length < 8){
-            regPwd.value=""
-            regPwd.classList.add('placeHolder');
-            regPwd.placeholder = "Password must over 8 character"
-        }else if(regPwd.value = " "){
-            regPwd.value=""
-            regPwd.classList.add('placeHolder');
-            regPwd.placeholder = "Password is blank"
-        }
-        if(regPwd.value !== regPwd2.value){
-            regPwd2.value= ""
-            regPwd2.classList.add('placeHolder');
-            regPwd2.placeholder = "Password is not same"
-        }
-        if(regPwd.value = ""){
-            regPwd2.value= ""
-            regPwd2.classList.add('placeHolder');
-            regPwd2.placeholder = "Password is blank"
-        }
-
-        if(!regName.value){
-            regName.classList.add('placeHolder');
-            regName.placeholder = "name is blank"
-        }
-
     }
-
+        client_list.map((item)=>{
+            if(item.ID === reg_ID){// 전체 회원정보 아이디와 비교
+                regId.value= ""
+                regId.classList.add('placeHolder'); // 글씨 색 바꾸기
+                regId.placeholder = "same ID exits"
+            }else if((regId.value.length>5)&&(regPwd.value.length > 8)&&(regPwd.value == regPwd2.value)&&(regName.value)){
+                client_list.push({ID:regId.value, Pwd:regPwd.value, Name:regName.value})
+                isLogin = 1;
+                _isLogin(regName.value)
+                registerHandler()// 창 닫고 입력 초기화
+            }else{
+                if(regId.value.length <5){
+                    regId.value= ""
+                    regId.classList.add('placeHolder'); // 글씨 색 바꾸기
+                    regId.placeholder = "ID must over 5 character"
+                }
+                if(regPwd.value.length < 8){
+                    regPwd.value= ""
+                    regPwd.classList.add('placeHolder');
+                    regPwd.placeholder = "Password must over 8 character"
+                }else if(regPwd.value = " "){
+                    regPwd.value= ""
+                    regPwd.classList.add('placeHolder');
+                    regPwd.placeholder = "Password is blank"
+                }
+                if(regPwd.value !== regPwd2.value){
+                    regPwd2.value= ""
+                    regPwd2.classList.add('placeHolder');
+                    regPwd2.placeholder = "Password is not same"
+                }else if(regPwd.value = ""){
+                    regPwd2.value= ""
+                    regPwd2.classList.add('placeHolder');
+                    regPwd2.placeholder = "Password is blank"
+                }
+                if(!regName.value){
+                    regName.classList.add('placeHolder');
+                    regName.placeholder = "name is blank"
+                }
+            }
+        })
 }
 
 
@@ -143,22 +184,68 @@ function loginHandler(){
     }
 }
 
-//로그인 오류 안내
+//로그인 오류 안내-----------------------------
 var loginID = document.querySelector(".login_id")
 var loginPwd = document.querySelector(".login_pwd")
 function handleLogin(){
-    // map 이용해서 접근
-    loginID.value= ""
-    loginID.classList.add('placeHolder'); // 글씨 색 바꾸기
-    loginID.placeholder = "ID is Incorrect"
-    loginPwd.value= ""
-    loginPwd.classList.add('placeHolder');
-    loginPwd.placeholder = "Password is Incorrect"
+ var login_ID = loginID.value
+    if(client_list.length <1){
+        loginID.value= ""
+        loginID.classList.add('placeHolder'); // 글씨 색 바꾸기
+        loginID.placeholder = "ID is Incorrect"
+        loginPwd.value= ""
+        loginPwd.classList.add('placeHolder');
+        loginPwd.placeholder = "Password is Incorrect"
+    }else{
+        client_list.map((item) => {
+            if(item.ID === login_ID ){
+                if(item.Pwd === loginPwd.value){
+                    isLogin = 1
+                    _isLogin(item.Name)
+                    loginHandler()
+                }else{
+                    loginPwd.value= ""
+                    loginPwd.classList.add('placeHolder');
+                    loginPwd.placeholder = "Password is Incorrect"
+                }
+            }else{
+                console.log(item, loginID.value )
+                loginID.value= ""
+                loginID.classList.add('placeHolder'); // 글씨 색 바꾸기
+                loginID.placeholder = "ID is Incorrect"
+            }
+    })
+        // map 이용해서 접근
+    }
+   
 }
 //----------로그인------------------
+var u_name = document.querySelector(".u_Name")
+var logout = document.querySelector(".logout")
+
+logout.addEventListener("click", logoutHandler)
+
+function logoutHandler(){
+    isLogin = 0
+    _isLogin("")
+}
+
 function _isLogin(ID){
-
-
+    //로그인
+    if(isLogin == 1){
+        login.style.display ="none";
+        register.style.display ="none";
+        u_name.style.display = "inline"
+        logout.style.display = "inline"
+        u_name.innerHTML = `${ID}`
+    }else{
+        //로그아웃
+        login.style.display ="inline";
+        register.style.display ="inline";
+        u_name.style.display = "none"
+        logout.style.display = "none"
+    }
+    
 }
 //--------------본문 수동 슬라이드 --------------
 var sector_imgArray=[]
@@ -254,6 +341,7 @@ function languageHandler(){
         navi3.innerHTML = "활동사진"
         navi4.innerHTML = "건의사항"
         login.innerHTML = "로그인"
+        logout.innerHTML = "로그아웃"
         register.innerHTML = "회원가입"
         language.innerHTML = "English"
         context_sliderHandler(0)
@@ -288,6 +376,7 @@ function languageHandler(){
             navi3.innerHTML = "Photos"
             navi4.innerHTML = "Q&A"
             login.innerHTML = "Login"
+            logout.innerHTML = "Logout"
             register.innerHTML = "Register"
             language.innerHTML = "한국어"
             context_sliderHandler(0)
@@ -393,7 +482,6 @@ var form = document.querySelector('.chatform')
 
 function sendchat(){
 var chattext = document.querySelector(".chattext")
-console.log(chattext.value)
 if(chattext.value){
     var node = document.createElement("LI"); 
     node.classList.add("client")               
@@ -442,11 +530,10 @@ chatIcon.addEventListener("click",showchatbox)
 
 //-----------------------화면 깨짐 방지-----------------------------
 var container = document.querySelector(".s_container");
-var heads = document.querySelector(".s_heads")
+
 function setcontainerSize(){
    var x = document.body.clientWidth
    var y = document.body.clientHeight
-   var head_x = document.clientWidth
     container.style.minWidth = `${x}px`
     container.style.minHeight =`${y}px`
 
