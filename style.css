@@ -183,7 +183,7 @@ body::-webkit-scrollbar-track {
     align-items: center;
 }
 .chattext{
-    width: 180px;
+    width: 220px;
     height: 30px;
     padding-right: 50px; /*버튼과 겹치게 설정*/
 }
@@ -254,8 +254,7 @@ ul{
 /*메인 배경*/
 .s_header{
     width: 100%;
- 
-    height: 100%;
+    height: 120%;
     background-image: url(./main_images/bg00.jpg);
     background-size: cover;
 }
@@ -286,6 +285,18 @@ ul{
     text-decoration: underline overline; /*위 아래 선 긋기*/
     cursor: pointer;
 }
+.logout{
+    display:none; 
+}
+.u_Name{
+    display:none; 
+}
+.logout:hover{
+    background-color: #3b3a3a;
+}
+.u_Name:hover{
+    background-color: #3b3a3a;
+}
 .login:hover{
     background-color: #3b3a3a;
 }
@@ -296,9 +307,11 @@ ul{
     background-color: #3b3a3a;
 }
 .s_navi_right li{
-    border: #f2f2f2 solid 1px;
-    display: inline;    
+    border: #f2f2f2 solid 1px;   
     padding: 3px;
+}
+.language,.login,.register{
+    display: inline;
 }
 .s_navi_right li:hover{
     cursor: pointer;   
