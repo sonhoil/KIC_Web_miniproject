@@ -266,8 +266,8 @@ ul{
 }
 /*메인 배경*/
 .s_header{
-    max-width: 868px;
-    max-height: 700px;
+    max-width: 968px;
+    max-height: 900px;
     width: 100%;
     height: 100%;
     background-image: url(./main_images/bg00.jpg);
@@ -310,11 +310,21 @@ ul{
 .language:hover{
     background-color: #3b3a3a;
 }
+.logout{
+    display:none; 
+}
+.u_Name{
+    display:none; 
+}
+
 .s_navi_right li{
-    border: #f2f2f2 solid 1px;
-    display: block;    
+    border: #f2f2f2 solid 1px;   
     padding: 3px;
 }
+.language,.login,.register{
+    display: block;
+}
+
 .s_navi_right li:hover{
     cursor: pointer;   
 }
@@ -568,8 +578,8 @@ video{
 .s_footer{
     position: fixed;
     width: 100%;
-    height: 40%;
-    display: none;
+    height: 20%;
+    bottom: 0px;
     background-color:rgba(9, 8, 8, 1);
     color: #f2f2f2;
     text-align: left;
